@@ -10,6 +10,7 @@ void mod_init() {
     logInfo("Config file path: %s", getConfigFilePath().c_str());
 
     loadConfig();
+    logDefaultConfigPreview();
 
     const ModConfig& cfg = getConfig();
     logInfo("Mod initialized");
