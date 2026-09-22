@@ -35,10 +35,6 @@ void loadConfig() {
     logInfo("Base directory: %s", baseDir.c_str());
     logInfo("Config path: %s", g_config.configPath.c_str());
 
-    if (!ensureDirectoriesExist(baseDir)) {
-        
-        logError("Could not ensure config directory exists");
-    } else {
         if (!fileExists(g_config.configPath)) {
             logInfo("Config file does not exist, writing default config...");
             if (!writeTextFile(g_config.configPath, getDefaultConfigText())) {
@@ -47,6 +43,15 @@ void loadConfig() {
         } else {
             logInfo("Config file already exists: %s", g_config.configPath.c_str());
         }
+
+        std::string configText;
+        if (readTextFile(g_config.configPath, configText)) {
+            logInfo("Config file contents:");
+            logInfo("%s", configText.c_str());
+        } else {
+            logError("Could not read config file after setup");
+        }
+    
     }
 
     logInfo("Config loaded");
