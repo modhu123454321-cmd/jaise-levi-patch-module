@@ -1,6 +1,7 @@
 #include "config.h"
 #include "logger.h"
 #include "paths.h"
+#include "file_utils.h"
 
 static ModConfig g_config{};
 
@@ -27,6 +28,25 @@ void loadConfig() {
     g_config.showText = true;
     g_config.indicatorSize = 12;
     g_config.configPath = getConfigFilePath();
+
+    std::string baseDir = getBaseDirectory();
+
+    logInfo("Preparing config system...");
+    logInfo("Base directory: %s", baseDir.c_str());
+    logInfo("Config path: %s", g_config.configPath.c_str());
+
+    if (!ensureDirectoryExists(baseDir)) {
+        logError("Could not ensure config directory exists");
+    } else {
+        if (!fileExists(g_config.configPath)) {
+            logInfo("Config file does not exist, writing default config...");
+            if (!writeTextFile(g_config.configPath, getDefaultConfigText())) {
+                logError("Failed to write default config file");
+            }
+        } else {
+            logInfo("Config file already exists: %s", g_config.configPath.c_str());
+        }
+    }
 
     logInfo("Config loaded");
     logInfo("  enabled=%d", g_config.enabled);
