@@ -1,3 +1,28 @@
+#include "config.h"
+#include "file_utils.h"
+#include "logger.h"
+#include "paths.h"
+
+static ModConfig g_config;
+
+const ModConfig& getConfig() {
+    return g_config;
+}
+
+std::string getDefaultConfigText() {
+    return
+        "{\n"
+        "  \"enabled\": true,\n"
+        "  \"showText\": true,\n"
+        "  \"indicatorSize\": 48\n"
+        "}\n";
+}
+
+void logDefaultConfigPreview() {
+    logInfo("Default config preview:");
+    logInfo("%s", getDefaultConfigText().c_str());
+}
+
 void loadConfig() {
     const std::string baseDir = getBaseDirectory();
     g_config.configPath = getConfigFilePath();
