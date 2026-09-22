@@ -10,3 +10,5 @@ struct ModConfig {
 
 const ModConfig& getConfig();
 void loadConfig();
+std::string getDefaultConfigText();
+void logDefaultConfigPreview();
