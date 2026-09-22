@@ -53,3 +53,43 @@ bool writeTextFile(const std::string& path, const std::string& content) {
     logInfo("Wrote text file: %s", path.c_str());
     return true;
 }
+bool ensureDirectoriesExist(const std::string& path) {
+    if (path.empty()) {
+        logError("ensureDirectoriesExist called with empty path");
+        return false;
+    }
+
+    std::string current;
+    for (size_t i = 0; i < path.size(); ++i) {
+        char ch = path[i];
+        current += ch;
+
+        if (ch == '/') {
+            if (current.size() == 1) {
+                continue; // root "/"
+            }
+
+            current.pop_back(); // remove trailing '/'
+
+            if (!current.empty() && !fileExists(current)) {
+                if (!ensureDirectoryExists(current)) {
+                    return false;
+                }
+            }
+
+            current += '/';
+        }
+    }
+
+    if (!current.empty() && current.back() == '/') {
+        current.pop_back();
+    }
+
+    if (!current.empty() && !fileExists(current)) {
+        if (!ensureDirectoryExists(current)) {
+            return false;
+        }
+    }
+
+    return true;
+}
