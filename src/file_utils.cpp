@@ -93,3 +93,21 @@ bool ensureDirectoriesExist(const std::string& path) {
 
     return true;
 }
+bool readTextFile(const std::string& path, std::string& outContent) {
+    std::ifstream in(path);
+    if (!in.is_open()) {
+        logError("Failed to open file for reading: %s", path.c_str());
+        return false;
+    }
+
+    outContent.assign((std::istreambuf_iterator<char>(in)),
+                      std::istreambuf_iterator<char>());
+
+    if (in.bad()) {
+        logError("Failed while reading file: %s", path.c_str());
+        return false;
+    }
+
+    logInfo("Read text file: %s", path.c_str());
+    return true;
+}
