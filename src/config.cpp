@@ -8,6 +8,20 @@ const ModConfig& getConfig() {
     return g_config;
 }
 
+std::string getDefaultConfigText() {
+    return R"({
+  "enabled": true,
+  "showText": true,
+  "indicatorSize": 12
+})";
+}
+
+void logDefaultConfigPreview() {
+    std::string text = getDefaultConfigText();
+    logInfo("Default config preview:");
+    logInfo("%s", text.c_str());
+}
+
 void loadConfig() {
     g_config.enabled = true;
     g_config.showText = true;
