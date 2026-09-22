@@ -35,7 +35,8 @@ void loadConfig() {
     logInfo("Base directory: %s", baseDir.c_str());
     logInfo("Config path: %s", g_config.configPath.c_str());
 
-    if (!ensureDirectoryExists(baseDir)) {
+    if (!ensureDirectoriesExist(baseDir)) {
+        
         logError("Could not ensure config directory exists");
     } else {
         if (!fileExists(g_config.configPath)) {
