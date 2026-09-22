@@ -1,0 +1,9 @@
+{
+  "type": "preload-native",
+  "name": "@MOD_NAME@",
+  "author": "@MOD_AUTHOR@",
+  "version": "@MOD_VERSION@",
+  "entry": "lib@MOD_LIBRARY_NAME@.so",
+  "icon": "@MOD_ICON@",
+  "minecraft_versions": @MOD_MINECRAFT_VERSIONS@
+}
