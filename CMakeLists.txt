@@ -8,6 +8,12 @@ add_library(CursorIndicator SHARED
     src/main.cpp
 )
 
+find_library(log-lib log)
+
+target_link_libraries(CursorIndicator
+    ${log-lib}
+)
+
 set_target_properties(CursorIndicator PROPERTIES
     OUTPUT_NAME "CursorIndicator"
     PREFIX "lib"
