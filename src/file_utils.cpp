@@ -6,6 +6,7 @@
 #include <fstream>
 #include <cerrno>
 #include <cstring>
+#include <vector>
 
 bool fileExists(const std::string& path) {
     struct stat info {};
