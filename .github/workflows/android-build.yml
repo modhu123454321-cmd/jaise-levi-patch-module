@@ -1,0 +1,53 @@
+name: Build Android LeviPack
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y ninja-build zip
+
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r26d
+
+      - name: Configure CMake
+        run: >
+          cmake -S . -B build
+          -G Ninja
+          -DCMAKE_BUILD_TYPE=Release
+          -DCMAKE_SYSTEM_NAME=Android
+          -DCMAKE_ANDROID_NDK=${ANDROID_NDK_ROOT}
+          -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a
+          -DCMAKE_SYSTEM_VERSION=24
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Prepare LeviPack
+        run: |
+          mkdir package
+          cp build/libCursorIndicator.so package/
+          cp manifest.json package/
+          cp icon.png package/
+          cd package
+          zip -r ../CursorIndicator.levipack .
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CursorIndicator-levipack
+          path: CursorIndicator.levipack
+          
