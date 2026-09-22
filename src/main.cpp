@@ -1,6 +1,10 @@
-#include <stdio.h>
+#include <android/log.h>
+
+#define LOG_TAG "CursorIndicator"
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 
 __attribute__((constructor))
 void mod_init() {
-    printf("[CursorIndicator] preload-native library loaded\n");
+    LOGI("Cursor Indicator preload-native library loaded");
 }
