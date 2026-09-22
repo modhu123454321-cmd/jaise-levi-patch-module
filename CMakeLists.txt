@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_library(CursorIndicator SHARED
     src/main.cpp
+    src/logger.cpp
+    src/config.cpp
 )
 
 find_library(log-lib log)
@@ -19,3 +21,4 @@ set_target_properties(CursorIndicator PROPERTIES
     PREFIX "lib"
     SUFFIX ".so"
 )
+
