@@ -1,0 +1,11 @@
+{
+  "type": "preload-native",
+  "name": "Cursor Indicator",
+  "author": "modhu123454321-cmd",
+  "description": "A visual cursor indicator mod for Minecraft Bedrock.",
+  "version": "0.1.0",
+  "entry": "libCursorIndicator.so",
+  "icon": "icon.png",
+  "overwrite_files": [],
+  "overwrite_folders": []
+}
