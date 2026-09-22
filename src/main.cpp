@@ -1,56 +1,21 @@
-#include "config.h"
 #include "logger.h"
+#include "config.h"
 #include "paths.h"
-#include "file_utils.h"
 
-static ModConfig g_config{};
+__attribute__((constructor))
+void mod_init() {
+    logInfo("Cursor Indicator library loaded");
 
-const ModConfig& getConfig() {
-    return g_config;
-}
+    logInfo("Base directory: %s", getBaseDirectory().c_str());
+    logInfo("Config file path: %s", getConfigFilePath().c_str());
 
-std::string getDefaultConfigText() {
-    return R"({
-  "enabled": true,
-  "showText": true,
-  "indicatorSize": 12
-})";
-}
+    loadConfig();
+    logDefaultConfigPreview();
 
-void logDefaultConfigPreview() {
-    std::string text = getDefaultConfigText();
-    logInfo("Default config preview:");
-    logInfo("%s", text.c_str());
-}
-
-void loadConfig() {
-    g_config.enabled = true;
-    g_config.showText = true;
-    g_config.indicatorSize = 12;
-    g_config.configPath = getConfigFilePath();
-
-    std::string baseDir = getBaseDirectory();
-
-    logInfo("Preparing config system...");
-    logInfo("Base directory: %s", baseDir.c_str());
-    logInfo("Config path: %s", g_config.configPath.c_str());
-
-    if (!ensureDirectoryExists(baseDir)) {
-        logError("Could not ensure config directory exists");
-    } else {
-        if (!fileExists(g_config.configPath)) {
-            logInfo("Config file does not exist, writing default config...");
-            if (!writeTextFile(g_config.configPath, getDefaultConfigText())) {
-                logError("Failed to write default config file");
-            }
-        } else {
-            logInfo("Config file already exists: %s", g_config.configPath.c_str());
-        }
-    }
-
-    logInfo("Config loaded");
-    logInfo("  enabled=%d", g_config.enabled);
-    logInfo("  showText=%d", g_config.showText);
-    logInfo("  indicatorSize=%d", g_config.indicatorSize);
-    logInfo("  configPath=%s", g_config.configPath.c_str());
+    const ModConfig& cfg = getConfig();
+    logInfo("Mod initialized");
+    logInfo("  enabled=%d", cfg.enabled);
+    logInfo("  showText=%d", cfg.showText);
+    logInfo("  indicatorSize=%d", cfg.indicatorSize);
+    logInfo("  configPath=%s", cfg.configPath.c_str());
 }
