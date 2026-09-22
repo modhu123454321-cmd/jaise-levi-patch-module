@@ -1,5 +1,6 @@
 #include "config.h"
 #include "logger.h"
+#include "paths.h"
 
 static ModConfig g_config{};
 
@@ -11,9 +12,11 @@ void loadConfig() {
     g_config.enabled = true;
     g_config.showText = true;
     g_config.indicatorSize = 12;
+    g_config.configPath = getConfigFilePath();
 
-    logInfo("Config loaded: enabled=%d, showText=%d, indicatorSize=%d",
-            g_config.enabled,
-            g_config.showText,
-            g_config.indicatorSize);
+    logInfo("Config loaded");
+    logInfo("  enabled=%d", g_config.enabled);
+    logInfo("  showText=%d", g_config.showText);
+    logInfo("  indicatorSize=%d", g_config.indicatorSize);
+    logInfo("  configPath=%s", g_config.configPath.c_str());
 }
