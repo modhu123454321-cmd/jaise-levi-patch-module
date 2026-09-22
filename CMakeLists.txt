@@ -8,6 +8,7 @@ add_library(CursorIndicator SHARED
     src/main.cpp
     src/logger.cpp
     src/config.cpp
+    src/paths.cpp
 )
 
 find_library(log-lib log)
@@ -21,4 +22,3 @@ set_target_properties(CursorIndicator PROPERTIES
     PREFIX "lib"
     SUFFIX ".so"
 )
-
