@@ -9,7 +9,8 @@ add_library(CursorIndicator SHARED
     src/logger.cpp
     src/config.cpp
     src/paths.cpp
-    src/file_utils.cpp
+    src/utils.cpp
+    src/hooks.cpp
 )
 
 find_library(log-lib log)
