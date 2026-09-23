@@ -1,3 +1,4 @@
+#include "config.h"
 #include "logger.h"
 #include "config.h"
 #include "paths.h"
