@@ -9,7 +9,6 @@ add_library(CursorIndicator SHARED
     src/logger.cpp
     src/config.cpp
     src/paths.cpp
-    src/utils.cpp
     src/hooks.cpp
 )
 
