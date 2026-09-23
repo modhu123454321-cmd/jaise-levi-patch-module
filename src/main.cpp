@@ -1,7 +1,6 @@
 #include "config.h"
 #include "logger.h"
 #include "paths.h"
-#include <cmath.h>
 
 __attribute__((constructor))
 void mod_init() {
