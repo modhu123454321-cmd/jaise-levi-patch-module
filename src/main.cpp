@@ -2,6 +2,11 @@
 #include "logger.h"
 #include "paths.h"
 
+static void setupFeature(const ModConfig& cfg) {
+    logInfo("Setting up cursor indicator feature");
+    logInfo("Feature config: showText=%d, indicatorSize=%d", cfg.showText, cfg.indicatorSize);
+}
+
 __attribute__((constructor))
 void mod_init() {
     logInfo("Cursor Indicator library loaded");
@@ -25,11 +30,5 @@ void mod_init() {
     logInfo("  indicatorSize=%d", cfg.indicatorSize);
     logInfo("  configPath=%s", cfg.configPath.c_str());
 
-    if (cfg.showText) {
-        logInfo("Text display is enabled");
-    } else {
-        logInfo("Text display is disabled");
-    }
-
-    logInfo("Indicator will use size: %d", cfg.indicatorSize);
+    setupFeature(cfg);
 }
