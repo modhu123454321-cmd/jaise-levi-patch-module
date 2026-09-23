@@ -20,8 +20,13 @@ std::string trim(const std::string& input) {
     return input.substr(start, end - start);
 }
 
-std::string readTextFile(const std::string& path) {
-    std::ifstream file(path);
+std::string readTextFile(const std::string& path, bool binary) {
+    std::ios::openmode mode = std::ios::in;
+    if (binary) {
+        mode |= std::ios::binary;
+    }
+
+    std::ifstream file(path, mode);
     if (!file.is_open()) {
         return "";
     }
