@@ -24,4 +24,12 @@ void mod_init() {
     logInfo("  showText=%d", cfg.showText);
     logInfo("  indicatorSize=%d", cfg.indicatorSize);
     logInfo("  configPath=%s", cfg.configPath.c_str());
+
+    if (cfg.showText) {
+        logInfo("Text display is enabled");
+    } else {
+        logInfo("Text display is disabled");
+    }
+
+    logInfo("Indicator will use size: %d", cfg.indicatorSize);
 }
