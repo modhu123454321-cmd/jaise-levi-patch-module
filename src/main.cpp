@@ -1,36 +1,25 @@
-#include "config.h"
-#include "hooks.h"
-#include "logger.h"
-#include "paths.h"
+cmake_minimum_required(VERSION 3.16)
+project(CursorIndicator)
 
-static void setupFeature(const ModConfig& cfg) {
-    logInfo("Setting up cursor indicator feature");
-    logInfo("Feature config: showText=%d, indicatorSize=%d", cfg.showText, cfg.indicatorSize);
-}
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-__attribute__((constructor))
-void mod_init() {
-    logInfo("Cursor Indicator library loaded");
+add_library(CursorIndicator SHARED
+    src/main.cpp
+    src/logger.cpp
+    src/config.cpp
+    src/paths.cpp
+    src/hooks.cpp
+)
 
-    logInfo("Base directory: %s", getBaseDirectory().c_str());
-    logInfo("Config file path: %s", getConfigFilePath().c_str());
+find_library(log-lib log)
 
-    loadConfig();
+target_link_libraries(CursorIndicator
+    ${log-lib}
+)
 
-    const ModConfig& cfg = getConfig();
-    if (!cfg.enabled) {
-        logInfo("Mod is disabled in config, skipping feature setup");
-        return;
-    }
-
-    logInfo("Mod is enabled, feature setup can continue");
-
-    logInfo("Mod initialized:");
-    logInfo("  enabled=%d", cfg.enabled);
-    logInfo("  showText=%d", cfg.showText);
-    logInfo("  indicatorSize=%d", cfg.indicatorSize);
-    logInfo("  configPath=%s", cfg.configPath.c_str());
-
-    setupFeature(cfg);
-    installHooks();
-}
+set_target_properties(CursorIndicator PROPERTIES
+    OUTPUT_NAME "CursorIndicator"
+    PREFIX "lib"
+    SUFFIX ".so"
+)
