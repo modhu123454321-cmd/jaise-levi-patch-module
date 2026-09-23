@@ -7,6 +7,11 @@ static void setupFeature(const ModConfig& cfg) {
     logInfo("Feature config: showText=%d, indicatorSize=%d", cfg.showText, cfg.indicatorSize);
 }
 
+static void installHooks() {
+    logInfo("Installing hook skeleton");
+    logInfo("No runtime hooks implemented yet");
+}
+
 __attribute__((constructor))
 void mod_init() {
     logInfo("Cursor Indicator library loaded");
@@ -31,4 +36,5 @@ void mod_init() {
     logInfo("  configPath=%s", cfg.configPath.c_str());
 
     setupFeature(cfg);
+    installHooks();
 }
