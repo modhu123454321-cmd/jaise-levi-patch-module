@@ -29,6 +29,6 @@ Example config:
 ```json
 {
   "enabled": true,
-  "showText": true,
-  "indicatorSize": 48
+  "showText": false,
+  "indicatorSize": 99
 }
