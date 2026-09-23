@@ -1,7 +1,8 @@
 #include "config.h"
 #include "logger.h"
-#include "config.h"
 #include "paths.h"
+#include "utils.h"
+#include <cmath.h>
 
 __attribute__((constructor))
 void mod_init() {
@@ -11,10 +12,16 @@ void mod_init() {
     logInfo("Config file path: %s", getConfigFilePath().c_str());
 
     loadConfig();
-    logDefaultConfigPreview();
 
     const ModConfig& cfg = getConfig();
-    logInfo("Mod initialized");
+    if (!cfg.enabled) {
+        logInfo("Mod is disabled in config, skipping feature setup");
+        return;
+    }
+
+    logInfo("Mod is enabled, feature setup can continue");
+
+    logInfo("Mod initialized:");
     logInfo("  enabled=%d", cfg.enabled);
     logInfo("  showText=%d", cfg.showText);
     logInfo("  indicatorSize=%d", cfg.indicatorSize);
