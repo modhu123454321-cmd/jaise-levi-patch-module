@@ -4,11 +4,11 @@
 struct ModConfig {
     bool enabled = true;
     bool showText = true;
-    int indicatorSize = 12;
+    int indicatorSize = 48;
     std::string configPath;
 };
 
 const ModConfig& getConfig();
-void loadConfig();
 std::string getDefaultConfigText();
 void logDefaultConfigPreview();
+void loadConfig();
