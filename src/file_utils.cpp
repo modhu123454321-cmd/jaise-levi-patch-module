@@ -20,7 +20,7 @@ std::string trim(const std::string& input) {
     return input.substr(start, end - start);
 }
 
-std::string readTextFile(const std::string& path, bool binary) {
+bool readTextFile(const std::string& path, std::string& outText, bool binary) {
     std::ios::openmode mode = std::ios::in;
     if (binary) {
         mode |= std::ios::binary;
@@ -28,10 +28,12 @@ std::string readTextFile(const std::string& path, bool binary) {
 
     std::ifstream file(path, mode);
     if (!file.is_open()) {
-        return "";
+        outText.clear();
+        return false;
     }
 
     std::ostringstream buffer;
     buffer << file.rdbuf();
-    return buffer.str();
+    outText = buffer.str();
+    return true;
 }
