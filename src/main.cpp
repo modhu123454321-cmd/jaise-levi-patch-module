@@ -1,15 +1,11 @@
 #include "config.h"
+#include "hooks.h"
 #include "logger.h"
 #include "paths.h"
 
 static void setupFeature(const ModConfig& cfg) {
     logInfo("Setting up cursor indicator feature");
     logInfo("Feature config: showText=%d, indicatorSize=%d", cfg.showText, cfg.indicatorSize);
-}
-
-static void installHooks() {
-    logInfo("Installing hook skeleton");
-    logInfo("No runtime hooks implemented yet");
 }
 
 __attribute__((constructor))
